@@ -8,6 +8,10 @@
         <img class="rounded img-fluid" src="<%= gravatar_url(@user, { size: 500 }) %>" alt="">
       </div>
     </div>
+    <% if current_user == @user %>
+      <%= link_to 'Edit', edit_user_path(current_user), class: 'btn btn-light btn-block' %>
+      <%= link_to 'Retire', current_user, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-block' %>
+    <% end %>
     <%= render 'relationships/follow_button', user: @user %>
   </aside>
   <div class="col-sm-8">

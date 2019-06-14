@@ -1,6 +1,6 @@
 class MicropostsController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]  
+  before_action :correct_user, only: [:edit, :update, :destroy]  
   
   def create
     @micropost = current_user.microposts.build(micropost_params)
@@ -12,6 +12,22 @@ class MicropostsController < ApplicationController
       flash.now[:danger] = 'メッセージの投稿に失敗しました。'
       render 'toppages/index'
     end
+  end
+  
+  def edit
+    @micropost = Micropost.find(params[:id])
+  end
+  
+  def update
+    @micropost = Micropost.find(params[:id])
+    
+    if @micropost.update(micropost_params)
+      flash[:success] = 'メッセージは正常に更新されました'
+      redirect_to current_user
+    else
+      flash.now[:danger] = 'メッセージは更新されませんでした'
+      render :edit
+    end    
   end
 
   def destroy

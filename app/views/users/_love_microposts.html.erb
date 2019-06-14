@@ -14,6 +14,7 @@
         <%= render 'favorites/love_button', micropost: love_micropost %>
       <% end %>
       <% if current_user == love_micropost.user %>
+        <%= link_to "Edit", edit_micropost_path(love_micropost), class: 'btn btn-light btn-sm' %>
         <%= link_to "Delete", love_micropost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
       <% end %>
     </li>
